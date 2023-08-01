@@ -1,0 +1,202 @@
+Zscript language (official) documentation
+
+[COMMENTS]
+	To write a comment, there are two ways
+	- Single-Line comment :
+		/ ...
+
+	  Example :
+		/ this is a single line comment
+	- Multiple-line comment :
+		//
+		...
+		...
+		...
+		//
+		
+	  Example :
+		//
+			This is a great comment
+			It's not interpreted by zscript
+		//
+[STRINGS]
+	They are used to store text, to specify a string we have to circle it with double-quotes (") :
+		"<text>"
+	Example :
+		"this here is a string"
+
+	It's possible to include double quotes inside the text by escaping it with \ :
+		Example :
+			"your name is \"Jeff\""
+[BUILTIN FUNCTIONS]
+	sqrt(x) : returns the square root of x
+[EXPRESSIONS]
+	They serve for comparaisons and operations between data:
+		We can use operators between either numbers or variable names to specify actions with them :
+			+ : add two values
+			- : substract two values
+			/ : convert values to float then divide between them
+			* : multiply two values
+			
+			== : Equals
+			!= : Not equal
+			> : Superior
+			>= : Superior equal
+			< : Inferior
+			<= : Inferior equal
+			
+			( : Open parentesis
+			) : Close parentesis
+		Examples :
+			256 : returns 256
+			<variable name> : returns the value of the variable named <variable name> if it exists
+			1+1/2+1/4+1/8+1/16+2*8-2.2 : returns 15.737500
+			"hello"=="hello" : returns 1
+			2 > 1 : returns 1
+			9 < 2 : returns 0
+			(1+2)/2 : returns 1.5
+			1+2/2 ! returns 2
+	There are also some native keywords that can be used :
+			readint : reads an int from the user and return it
+			readfloat : reads a float from the user and return it
+			readstr : reads a string from the user and return it
+			randint : returns an integer value between 1 and 100
+
+	Notice : Expressions can't contain any space
+[VARIABLES]
+	Variables are places we can create to store data, but there are many variable types such as :
+		string : String of characters
+		int : Integer (32 bits)
+		float : Floating point number (32 bits)
+		vector : List of elements
+
+	- To create a variable :
+		<type> <variable name> = <expression>
+
+	  Example :
+		string mytext = "hello"
+		int mynumber = 12
+		float othernumber = 2.5/2+1
+		string userinput = readstr
+		vector vec = vector
+	- To modify the content of an exising variable :
+		<variable name> = <new expression>
+
+	  Example :
+		mytext = "new string"
+		mynumber = 50
+		othernumber = othernumber+mynumber/4+2
+
+[PRINT]
+	Print is a keyword that will output data to the console :
+		print <expression>
+
+	It's also possible to print multiple expressions, each will be separated by a space at printing
+		print <expression 1> <expression 2> ...
+	There's an alternative to print which is printr (print raw) which will print the data but without printing a newline character at the end :
+		printr ...
+
+[CONDITIONNAL STATEMENTS]
+	A certain block of code can be executed if some expression is equal to 1
+	In zscript we can create a conditionnal structure, it's done the following way :
+	if <expression>
+		(code that will be executed if <expression> is 1...)
+	endif
+	
+	The endif indicates that it's the end of the structure
+
+	It's possible, between the if and endif to add another block called else, where its code will be executed if the the <expression> is not equal to one
+
+	if <expression>
+		(code for if...)
+	else
+		(code for else...)
+	endif
+
+	Example :
+		int number = readint
+	
+		if number>=2 / this expression will be 1 if the number is superior or equal to 2
+			print "Ok the number is superior or equal to 2"
+		else
+			print "The number is inferior to 2
+		endif
+
+	It is possible to have conditionnal structure inside other conditionnal structures (see ../examples/example3.zs)
+
+[LOOP STATEMENTS]
+	A certain block of code can be repeated while a certain condition is verified (some expression is 1)
+	loop <expression>
+		(code that will be executed while <expression> is 1...)
+	endloop
+
+	The endloop indicates that it's the end of the loop
+
+	
+	Inside a loop, it's possible to use certain keywords to make actions with the loop :
+		- crack : Will end the loop without verifying if the expression is one
+		- reit : Will go back to the start of the loop
+
+	Example :
+		int i = 0
+		loop i<10
+			print i
+			i = i+1
+		endloop
+		print "Outside the loop"
+
+[VECTORS]
+	Vectors are variables that contain mutliple elements, they are lists
+	- To create a vector, we have to assign a variable of type vector to vector :
+		vector <vector variable> = vector
+
+	Each vector element has an index to specify it, 
+
+	index = number of the element - 1
+	The first one will have the index 0, the second one the index 1...
+	- To create or set an element that has the index <index> :
+		<vector variable>[ <expression : index> ] = <expression for value>
+
+		If the vector there's no space left on the vector then it's extended, and every value between index and start of vector will be affected to NONE
+
+		Example :
+			vector vec = vector
+			vec[ 10 ] = "hey"
+			vec[ 10+1 ] = 9
+			
+			vec -> {NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, "hey", 9}
+	- To specify a certain vector index in an expression :
+		<vector variable>[<expression : index>]
+	- We can use strings as vectors :
+		string var = "hello"
+		print "fist index of var" var[0]
+	- Strings can also be extended but only one index after the last index
+		var[5] = "n"
+		
+[FUNCTIONS]
+	Functions are piece of code that can be re-used whenever we want after it's defined
+
+	- Create a function :
+		defunc function <parameter>
+			(code for the function)
+		endef
+	Example :
+		defunc hello x
+			print "hello !"
+			return 2*x/2
+		endef
+	- Functions can return a value, to return a value from a function :
+		return <expression>
+	Example :
+		return 2+x
+
+	- To call a function :
+		function(<parameter>)
+	Example :
+		hello(2)
+		/ returns 4
+
+	- When the function returns, it's possible to use it in an expression :
+		int value = <function>(<param>)
+	Example :
+		(sqrt(2+hello(8)/2)+1)

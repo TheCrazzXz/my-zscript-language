@@ -1,0 +1,28 @@
+ZSCRIPT lanugage v1 DEVLOG, started around 20 July 2023
+
+ZSCRIPT lanugage is an free and open-sourced interpreted language programmed in C
+
+FEATURES available on the program :
+	[27/07/2023]
+	- comments (/ and //)
+	- strings, ints, floats
+	- use expressions (2+2+5/8 + 0.5 + var)
+	- expressions include : +, -, *, /, ==, !=, >, >=, <, <=
+	- variables
+	- print data to console
+	- read strings, ints and floats from the console
+	- if structure statements : if, else, endif
+	[28/07/2023]
+	- loops (loop (start loop while condition), endloop (loop normal end), crack (end loop), reit (re-iterate))
+	[30/07/2023]
+	- vectors (list of elements)
+	[31/07/2023]
+	- functions (one-parameter/argument, can return)
+	[01/08/2023]
+	- power (**)
+	- builtin functions (len, sqrt)
+	- parentesis
+FEATURES TO ADD :
+	[27/07/2023]
+	
+	- Modules (different files)
